@@ -72,7 +72,7 @@ $(document).ready(function() {
 });
 
 function cleanRoom(roomId){
-    if(dirtiness[roomId] > 0){
+    if(dirtiness[roomId] === 2){
         dirtiness[roomTheRobotIs] = 0;
         $('#action').text("Cleaning...").css({'font-family': 'Arial, serif;'});
         setTimeout(
@@ -80,7 +80,18 @@ function cleanRoom(roomId){
                         $('#action').text("");
                         $("#"+roomId).removeClass(['button-dirt', 'button-dirt-2']).addClass('button-no-dirt');
                     },
-            2000
+            6000
+        );
+    }
+    else if (dirtiness[roomId] === 1) {
+        dirtiness[roomTheRobotIs] = 0;
+        $('#action').text("Cleaning...").css({'font-family': 'Arial, serif;'});
+        setTimeout(
+            () => {
+                $('#action').text("");
+                $("#"+roomId).removeClass(['button-dirt', 'button-dirt-2']).addClass('button-no-dirt');
+            },
+            3000
         );
     }
 }
@@ -202,28 +213,21 @@ function decideRoom(){
     }
 }
 
-function automaticDirty(){
-    for(var i = 0; i < 4; i++){
-        increaseDirty(i);
-    }
-}
-
-function increaseDirty(i){
-    dirtiness[i] = dirtiness[i] + DIRTY_AMOUNT;
-    $('#'+i).text(dirtiness[i]);
-    if(dirtiness[i] > 99){
-        rooms[i] = false;
-    }
-}
-
 function automaticMode(){
     if(auto) {
-        if(dirtiness[roomTheRobotIs] > 0){
+        if(dirtiness[roomTheRobotIs] === 2){
+            cleanRoom(roomTheRobotIs);
+            setTimeout(
+                () => {automaticMode()},
+                6000
+            );
+        }
+        else if (dirtiness[roomTheRobotIs] === 1) {
             cleanRoom(roomTheRobotIs);
             setTimeout(
                 () => {automaticMode()},
                 3000
-        );
+            );
         }
         else{
             if(greedMode) {
