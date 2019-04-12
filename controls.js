@@ -1,30 +1,30 @@
-let roomTheRobotIs = 0;
-let dirtiness = [0, 0, 0, 0];
+let quartoRoboEsta = 0;
+let sujeiras = [0, 0, 0, 0];
 let auto = true;
 
 $(document).ready(function() {
-    $('.room').click(function() {
-        increaseDirty(this.id);
+    $('.quarto').click(function() {
+        aumentarSujeira(this.id);
     });
 
-    $('#RIGHT').click(function() {
-        right();
+    $('#DIREITA').click(function() {
+        direita();
     });
 
-    $('#LEFT').click(function() {
-        left();
+    $('#ESQUERDA').click(function() {
+        esquerda();
     });
 
-    $('#DOWN').click(function() {
-        down();
+    $('#BAIXO').click(function() {
+        baixo();
     });
 
-    $('#UP').click(function() {
-        up();
+    $('#CIMA').click(function() {
+        cima();
     });
 
-    $('#SUCK').click(function() {
-        cleanRoom(roomTheRobotIs);
+    $('#LIMPAR').click(function() {
+        limparQuarto(quartoRoboEsta);
     });
 
     $('#AUTO').click(function() {
@@ -37,15 +37,15 @@ $(document).ready(function() {
         }
     });
 
-    automaticMode();
+    modoAutomatico();
 
 });
 
-function increaseDirty(i){
-    if (dirtiness[i] < 2) {
-        dirtiness[i] += 1;
+function aumentarSujeira(i){
+    if (sujeiras[i] < 2) {
+        sujeiras[i] += 1;
         let ind = $('#' + i);
-        switch (dirtiness[i]) {
+        switch (sujeiras[i]) {
             case 1:
                 ind.removeClass('button-no-dirt').addClass('button-dirt');
                 break;
@@ -56,111 +56,111 @@ function increaseDirty(i){
     }
 }
 
-function cleanRoom(roomId){
-    if(dirtiness[roomId] === 2){
-        dirtiness[roomTheRobotIs] = 0;
-        $('#action').text("Cleaning...");
+function limparQuarto(idQuarto){
+    if(sujeiras[idQuarto] === 2){
+        sujeiras[quartoRoboEsta] = 0;
+        $('#acao').text("Limpando...");
         setTimeout(
             () => {
-                        $('#action').text("");
-                        $("#"+roomId).removeClass(['button-dirt', 'button-dirt-2']).addClass('button-no-dirt');
+                        $('#acao').text("");
+                        $("#"+idQuarto).removeClass(['button-dirt', 'button-dirt-2']).addClass('button-no-dirt');
                     },
             6000
         );
     }
-    else if (dirtiness[roomId] === 1) {
-        dirtiness[roomTheRobotIs] = 0;
-        $('#action').text("Cleaning...");
+    else if (sujeiras[idQuarto] === 1) {
+        sujeiras[quartoRoboEsta] = 0;
+        $('#acao').text("Limpando...");
         setTimeout(
             () => {
-                $('#action').text("");
-                $("#"+roomId).removeClass(['button-dirt', 'button-dirt-2']).addClass('button-no-dirt');
+                $('#acao').text("");
+                $("#"+idQuarto).removeClass(['button-dirt', 'button-dirt-2']).addClass('button-no-dirt');
             },
             3000
         );
     }
 }
 
-function right() {
-    if(roomTheRobotIs === 0){
-        roomTheRobotIs = 1;
+function direita() {
+    if(quartoRoboEsta === 0){
+        quartoRoboEsta = 1;
     }
-    else if(roomTheRobotIs === 2){
-        roomTheRobotIs = 3;
+    else if(quartoRoboEsta === 2){
+        quartoRoboEsta = 3;
     }
 
     $('#r1').animate({left: '250px'}, 2000);
 }
 
-function left() {
-    if(roomTheRobotIs === 1){
-        roomTheRobotIs = 0;
+function esquerda() {
+    if(quartoRoboEsta === 1){
+        quartoRoboEsta = 0;
     }
-    else if(roomTheRobotIs === 3){
-        roomTheRobotIs = 2;
+    else if(quartoRoboEsta === 3){
+        quartoRoboEsta = 2;
     }
 
-    $('#r1').animate({left: '0px'}, 2000);
+    $('#r1').animate({left: '0'}, 2000);
 }
 
-function down() {
-    if(roomTheRobotIs === 0){
-        roomTheRobotIs = 2;
+function baixo() {
+    if(quartoRoboEsta === 0){
+        quartoRoboEsta = 2;
     }
-    else if(roomTheRobotIs === 1){
-        roomTheRobotIs = 3;
+    else if(quartoRoboEsta === 1){
+        quartoRoboEsta = 3;
     }
 
     $('#r1').animate({top: '250px'}, 2000);
 }
 
-function up() {
-    if(roomTheRobotIs === 2){
-        roomTheRobotIs = 0;
+function cima() {
+    if(quartoRoboEsta === 2){
+        quartoRoboEsta = 0;
     }
-    else if(roomTheRobotIs === 3){
-        roomTheRobotIs = 1;
+    else if(quartoRoboEsta === 3){
+        quartoRoboEsta = 1;
     }
 
-    $('#r1').animate({top: '0px'}, 2000);
+    $('#r1').animate({top: '0'}, 2000);
 }
 
-function goToNextRoom(){
-    switch(roomTheRobotIs){
+function irProximoQuarto(){
+    switch(quartoRoboEsta){
         case 0:
-            right();
+            direita();
             break;
         case 1:
-            down();
+            baixo();
             break;
         case 2:
-            up();
+            cima();
             break;
         case 3:
-            left();
+            esquerda();
             break;
     }
 }
 
-function goToPreviousRoom(){
-    switch(roomTheRobotIs){
+function irQuartoAnterior(){
+    switch(quartoRoboEsta){
         case 0:
-            down();
+            baixo();
             break;
         case 1:
-            left();
+            esquerda();
             break;
         case 2:
-            right();
+            direita();
             break;
         case 3:
-            up();
+            cima();
             break;
     }
 }
 
-function getNextRoom(){
-    switch(roomTheRobotIs){
+function getProximoQuarto(){
+    switch(quartoRoboEsta){
         case 0:
             return 1;
         case 1:
@@ -172,8 +172,8 @@ function getNextRoom(){
     }
 }
 
-function getPreviousRoom(){
-    switch(roomTheRobotIs){
+function getQuartoAnterior(){
+    switch(quartoRoboEsta){
         case 1:
             return 0;
         case 3:
@@ -185,47 +185,45 @@ function getPreviousRoom(){
     }
 }
 
-function decideRoom(){
-    if(dirtiness[roomTheRobotIs] > dirtiness[getNextRoom()] && dirtiness[roomTheRobotIs] > dirtiness[getPreviousRoom()]){
-        cleanRoom(roomTheRobotIs);
-        return;
+function decidirQuarto(){
+    if(sujeiras[quartoRoboEsta] > sujeiras[getProximoQuarto()] && sujeiras[quartoRoboEsta] > sujeiras[getQuartoAnterior()]){
+        limparQuarto(quartoRoboEsta);
     }
-
-    if(dirtiness[getNextRoom()] < dirtiness[getPreviousRoom()]){
-        goToPreviousRoom();
+    else if(sujeiras[getProximoQuarto()] < sujeiras[getQuartoAnterior()]){
+        irQuartoAnterior();
     }
     else{
-        goToNextRoom();
+        irProximoQuarto();
     }
 }
 
-function automaticMode(){
+function modoAutomatico(){
     if(auto) {
-        if(dirtiness[roomTheRobotIs] === 2){
-            cleanRoom(roomTheRobotIs);
+        if(sujeiras[quartoRoboEsta] === 2){
+            limparQuarto(quartoRoboEsta);
             setTimeout(
-                () => {automaticMode()},
+                () => {modoAutomatico()},
                 6000
             );
         }
-        else if (dirtiness[roomTheRobotIs] === 1) {
-            cleanRoom(roomTheRobotIs);
+        else if (sujeiras[quartoRoboEsta] === 1) {
+            limparQuarto(quartoRoboEsta);
             setTimeout(
-                () => {automaticMode()},
+                () => {modoAutomatico()},
                 3000
             );
         }
         else{
-            decideRoom();
+            decidirQuarto();
             setTimeout(
-                () => {automaticMode()},
+                () => {modoAutomatico()},
                 3000
             );
         }
     }
     else {
         setTimeout(
-            () => {automaticMode()},
+            () => {modoAutomatico()},
             2000
         );
     }

@@ -189,20 +189,21 @@ button[disabled]{
     top:1px;
 }
 
-.room {
+.quarto {
     width: 101px;
     height: 20px;
     position: relative;
 }
 
-.room_name {
+.nome_quarto {
     position: absolute;
-    font-size: 44px;
+    font-size: 25px;
+    margin-top: 53px;
     line-height: 0;
     font-weight: 600;
 }
 
-#world {
+#mundo {
     margin: auto;
     width: 350px;
 }
@@ -211,7 +212,7 @@ button[disabled]{
     margin-left: 41%;
 }
 
-.robot {
+.robo {
     width: 97px;
     height: 97px;
     border:2px solid #000000;
@@ -222,12 +223,12 @@ button[disabled]{
     box-shadow: -4px 7px 22px -9px #000000;
 }
 
-#action {
+#acao {
     position: relative;
     top: 10px;
 }
 
-#rooms{
+#quartos {
     margin: auto;
     text-align: center;
 }
